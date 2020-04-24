@@ -6,7 +6,7 @@
 
     <groupId>me.malu</groupId>
     <artifactId>mtool</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>mtool</name>
     <description>mtool</description>
     <url>http://malu.me/</url>
@@ -27,6 +27,17 @@
         <developerConnection>scm:git:git@github.com:pingmalu/mtool.git</developerConnection>
         <url>git@github.com:pingmalu/mtool.git</url>
     </scm>
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <java.version>1.8</java.version>
+    </properties>
 
     <profiles>
         <profile>
