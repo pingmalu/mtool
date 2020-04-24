@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * 用于封装服务器到客户端的Json返回值
+ *
+ * @author malu
+ * @since 2020-04-07
  */
 public class JsonResult<T> implements Serializable {
     //Serializable将对象的状态保存在存储媒体中以便可以在以后重新创建出完全相同的副本
@@ -13,7 +16,7 @@ public class JsonResult<T> implements Serializable {
 
     private int state;
     private String message = "";
-    private String info = "";
+    private String debug_info = "";
     private T data;
     private String pass = "";
 
@@ -27,9 +30,14 @@ public class JsonResult<T> implements Serializable {
         this.state = state;
         this.message = message;
         this.data = data;
-        Thread currentThread = Thread.currentThread();
-        StackTraceElement stackTrace = currentThread.getStackTrace()[3];
-        this.info = stackTrace.getFileName() + ":" + stackTrace.getLineNumber();
+    }
+
+    public JsonResult(int state, String message, T data, String debug_info) {
+        super();
+        this.state = state;
+        this.message = message;
+        this.data = data;
+        this.debug_info = debug_info;
     }
 
     public JsonResult(int state, String error) {
@@ -80,12 +88,12 @@ public class JsonResult<T> implements Serializable {
         this.data = data;
     }
 
-    public String getInfo() {
-        return info;
+    public String getDebug_info() {
+        return debug_info;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setDebug_info(String debug_info) {
+        this.debug_info = debug_info;
     }
 
     public static int getSuccess() {
@@ -98,6 +106,6 @@ public class JsonResult<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "JsonResult [state=" + state + ", message=" + message + ", pass=" + pass + ", info=" + info + ", data=" + data + "]";
+        return "JsonResult [state=" + state + ", message=" + message + ", pass=" + pass + ", debug_info=" + debug_info + ", data=" + data + "]";
     }
 }
