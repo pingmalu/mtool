@@ -11,15 +11,16 @@ package me.malu.mtool;
  */
 public final class mJson {
     public static boolean debug = false;
-    public static String success_msg = "成功";
+    public static String success_msg = "success";
+    public static final int SUCCESS = 0;
+    public static final int ERROR = 1;
 
     public static class JR_debug extends JR {
-        public static final int SUCCESS = 0;
-        public static final int ERROR = 1;
-        String debug_info;
+
+        public String debug_info;
 
         public JR_debug(String debug_info) {
-            super(SUCCESS, "成功", null);
+            super(SUCCESS, success_msg, null);
             this.debug_info = debug_info;
         }
 
@@ -76,9 +77,9 @@ public final class mJson {
         if (debug) {
             Thread currentThread = Thread.currentThread();
             StackTraceElement stackTrace = currentThread.getStackTrace()[2];
-            return new JR_debug(1, success_msg, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
+            return new JR_debug(SUCCESS, success_msg, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
         } else {
-            return new JR(1, success_msg, data);
+            return new JR(SUCCESS, success_msg, data);
         }
     }
 }
