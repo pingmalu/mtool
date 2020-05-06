@@ -10,7 +10,7 @@
 
 ### v3.* 重新定义返回码
 
-给予用户最大自由度，code默认只定义2个
+code默认只定义2个
 
 ```java
 public static final int SUCCESS = 200;
