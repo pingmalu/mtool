@@ -2,18 +2,16 @@ package me.malu.mtool;
 
 /**
  * 用静态方法减少代码量
- *
+ * <p>
  * v1.* 返回值对象JsonResult
  * v2.* 返回值对象JR
+ * v3.* 重新定义返回码
  *
  * @author malu
  * @since 2020-04-07
  */
 public final class mJson {
     public static boolean debug = false;
-    public static String success_msg = "success";
-    public static final int SUCCESS = 0;
-    public static final int ERROR = 1;
 
     public static class JR_debug extends JR {
 
@@ -24,8 +22,8 @@ public final class mJson {
             this.debug_info = debug_info;
         }
 
-        public JR_debug(int state, String message, Object data, String debug_info) {
-            super(state, message, data);
+        public JR_debug(int code, String message, Object data, String debug_info) {
+            super(code, message, data);
             this.debug_info = debug_info;
         }
 
@@ -43,13 +41,23 @@ public final class mJson {
         }
     }
 
-    public static <T> JR mJson(int state, String message, T data) {
+    public static <T> JR mJson(int code, String message, T data) {
         if (debug) {
             Thread currentThread = Thread.currentThread();
             StackTraceElement stackTrace = currentThread.getStackTrace()[2];
-            return new JR_debug(state, message, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
+            return new JR_debug(code, message, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
         } else {
-            return new JR(state, message, data);
+            return new JR(code, message, data);
+        }
+    }
+
+    public static JR mJson(int code, String message) {
+        if (debug) {
+            Thread currentThread = Thread.currentThread();
+            StackTraceElement stackTrace = currentThread.getStackTrace()[2];
+            return new JR_debug(code, message, null, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
+        } else {
+            return new JR(code, message, null);
         }
     }
 
@@ -77,9 +85,9 @@ public final class mJson {
         if (debug) {
             Thread currentThread = Thread.currentThread();
             StackTraceElement stackTrace = currentThread.getStackTrace()[2];
-            return new JR_debug(SUCCESS, success_msg, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
+            return new JR_debug(JR.SUCCESS, JR.success_msg, data, stackTrace.getFileName() + ":" + stackTrace.getLineNumber());
         } else {
-            return new JR(SUCCESS, success_msg, data);
+            return new JR(JR.SUCCESS, JR.success_msg, data);
         }
     }
 }

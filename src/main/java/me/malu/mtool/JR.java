@@ -10,31 +10,33 @@ import java.io.Serializable;
  */
 public class JR<T> implements Serializable {
     //Serializable将对象的状态保存在存储媒体中以便可以在以后重新创建出完全相同的副本
-    public static final int SUCCESS = 0;
-    public static final int ERROR = 1;
+    public static final int SUCCESS = 200;
+    public static final int ERROR = 500;
+    public static String success_msg = "success"; // 成功默认提示
 
-    private int state;
+    private int code;
     private String message = "";
     private T data;
 
     public JR() {
-        state = SUCCESS;
+        code = SUCCESS;
+        message = success_msg;
     }
 
     //为了方便，重载n个构造器
-    public JR(int state, String message, T data) {
+    public JR(int code, String message, T data) {
         super();
-        this.state = state;
+        this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public JR(int state, String error) {
-        this(state, error, null);
+    public JR(int code, String error) {
+        this(code, error, null);
     }
 
-    public JR(int state, T data) {
-        this(state, "", data);
+    public JR(int code, T data) {
+        this(code, "", data);
     }
 
     public JR(String error) {
@@ -42,23 +44,23 @@ public class JR<T> implements Serializable {
     }
 
     public JR(T data) {
-        this(SUCCESS, "", data);
+        this(SUCCESS, success_msg, data);
     }
 
-    public JR(int state) {
-        this(state, "", null);
+    public JR(int code) {
+        this(code, "", null);
     }
 
     public JR(Throwable e) {
         this(ERROR, e.getMessage(), null);
     }
 
-    public int getState() {
-        return state;
+    public int getCode() {
+        return code;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {
@@ -87,6 +89,6 @@ public class JR<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "JR [state=" + state + ", message=" + message + ", data=" + data + "]";
+        return "JR [code=" + code + ", message=" + message + ", data=" + data + "]";
     }
 }
