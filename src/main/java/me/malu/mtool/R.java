@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 类说明: 接口统一结果返回，极简R类
  *
  * @author : Malu
- * @date : 2020-05-13 09:51
+ * @since : 2020-05-13 09:51
  **/
 public class R<T> implements Serializable {
     public static final int SUCCESS = 200;
