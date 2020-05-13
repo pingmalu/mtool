@@ -12,6 +12,47 @@
 
 ### v4.* 新增R返回对象，支持链式调用，兼容多种入参结构
 
+支持以下写法：
+
+```java
+// 使用前先导入
+import me.malu.mtool.R;
+import static me.malu.mtool.R.R;  // 导入静态方法
+
+R.debug = true;  // 开启debug
+return R();
+return R("成功");
+return R("没有权限").code(R.ERROR);
+return R("没有权限",R.ERROR);
+return R(200,"保存成功");
+return R(404,"没有该接口","error");
+return R().code(5001).data("T object").message("some message");
+return R.ok();
+return R.ok().data("T object");
+return R.ok("更新完成");
+return R.ok("更新完成").data("T object");
+return R.ok("更新完成").data("T object").code(R.SUCCESS);
+return R.error().message("错误消息").code(503);
+return R.error("更新失败").code(503);
+return R.error("这个失败信息会被覆盖").code(5001).data("T object").message("some message");
+```
+
+开启关闭debug演示：
+
+```java
+@RequestMapping("/debug/on")
+public R debug_on() {
+    R.debug = true;
+    return R("debug开启");
+}
+
+@RequestMapping("/debug/off")
+public R debug_off() {
+    R.debug = false;
+    return R("debug关闭");
+}
+```
+
 code默认只定义2个
 
 ```java
